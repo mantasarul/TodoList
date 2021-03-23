@@ -15,7 +15,8 @@ export default function App() {
 
   const pressHandler = (key) => {
     setTodos((prevTodos) => {
-      return prevTodos.filter(todo => todo.key != key);
+    return prevTodos.filter(todo => todo.key != key);
+
     });
   }
 
@@ -48,7 +49,11 @@ export default function App() {
           <FlatList
             data={todos}
             renderItem={({ item }) => (
-              <TodoItem item={item} pressHandler={pressHandler} />
+              <TodoItem 
+              item={item} 
+              pressHandler={pressHandler}
+              renderRightActions={() => <View style={styles.redbox}></View>}
+              />
             )}
           />
         </View>
@@ -69,4 +74,8 @@ const styles = StyleSheet.create({
     borderColor: '#F44336',
 
   },
+  redbox: {
+    backgroundColor: 'red',
+    width: 80,
+  }
 })

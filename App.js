@@ -4,29 +4,35 @@ import AndriodSafeArea from './components/AndriodSafeArea';
 import { Text, View, StyleSheet, FlatList, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import TodoItem from './components/TodoItem';
 import AddTodo from './components/AddTodo';
+import uuid from 'uuid-random';
+
 
 export default function App() {
 
   const [todos, setTodos] = useState([
-    { text: 'buy coffee', key: '1' },
-    { text: 'create an app', key: '2' },
-    { text: 'play on swtich', key: '3' }
+    { text: 'buy coffee', key: uuid().toString() },
+    { text: 'create an app', key: uuid().toString() },
+    { text: 'play on swtich', key: uuid().toString() }
   ])
 
   const pressHandler = (key) => {
     setTodos((prevTodos) => {
-    return prevTodos.filter(todo => todo.key != key);
-
+      return prevTodos.filter(todo => todo.key != key);
     });
   }
+/*
+  const generateRandom = (key) => {
+    unique = Math.random * Math.random * Math.round(Math.log(Math.random));
+    return unique.toString();
 
-
+  }
+*/
   const submitHandler = (text) => {
     if (text.length > 3) {
 
       setTodos((prevTodos) => {
         return [
-          { text: text, key: Math.random.toString() },
+          { text: text, key: uuid() },
           ...prevTodos
         ];
       });
@@ -49,10 +55,10 @@ export default function App() {
           <FlatList
             data={todos}
             renderItem={({ item }) => (
-              <TodoItem 
-              item={item} 
-              pressHandler={pressHandler}
-              renderRightActions={() => <View style={styles.redbox}></View>}
+              <TodoItem
+                item={item}
+                pressHandler={pressHandler}
+                renderRightActions={() => <View style={styles.redbox}></View>}
               />
             )}
           />

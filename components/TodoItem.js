@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-function TodoItem({ item, pressHandler }) {
+function TodoItem({ item, pressHandler, renderRightActions }) {
     return (
-        <TouchableOpacity onPress={() => pressHandler(item.key)}>
-            <Text style={styles.item}>{item.text}</Text>
-        </TouchableOpacity>
+        <Swipeable renderRightActions={renderRightActions}>
+            <TouchableOpacity onPress={() => pressHandler(item.key)}>
+                <Text style={styles.item}>{item.text}</Text>
+            </TouchableOpacity>
+        </Swipeable>
     );
 }
 

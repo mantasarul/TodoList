@@ -20,19 +20,13 @@ export default function App() {
       return prevTodos.filter(todo => todo.key != key);
     });
   }
-/*
-  const generateRandom = (key) => {
-    unique = Math.random * Math.random * Math.round(Math.log(Math.random));
-    return unique.toString();
 
-  }
-*/
   const submitHandler = (text) => {
     if (text.length > 3) {
 
       setTodos((prevTodos) => {
         return [
-          { text: text, key: uuid() },
+          { text: text, key: uuid().toString() },
           ...prevTodos
         ];
       });
@@ -44,27 +38,29 @@ export default function App() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
-      console.log('touched and dismissed');
-    }}>
-      <AndriodSafeArea>
-        <Head title='To Do List' />
-        <View style={styles.content}>
-          <AddTodo submitHandler={submitHandler} />
-          <FlatList
-            data={todos}
-            renderItem={({ item }) => (
-              <TodoItem
-                item={item}
-                pressHandler={pressHandler}
-                renderRightActions={() => <View style={styles.redbox}></View>}
-              />
-            )}
-          />
+    <AndriodSafeArea>
+      <TouchableWithoutFeedback onPress={() => {
+        Keyboard.dismiss();
+        console.log('touched and dismissed');
+      }}>
+        <View style={styles.conatainer}>
+          <Head title='To Do List' />
+          <View style={styles.content}>
+            <AddTodo submitHandler={submitHandler} />
+            <FlatList
+              data={todos}
+              renderItem={({ item }) => (
+                <TodoItem
+                  item={item}
+                  pressHandler={pressHandler}
+                  renderRightActions={() => <View style={styles.redbox}></View>}
+                />
+              )}
+            />
+          </View>
         </View>
-      </AndriodSafeArea>
-    </TouchableWithoutFeedback >
+      </TouchableWithoutFeedback >
+    </AndriodSafeArea>
   );
 
 }
@@ -73,15 +69,22 @@ const styles = StyleSheet.create({
   content: {
     padding: 10,
     margin: 10,
+    // flex: 1,
   },
+  conatainer: {
+    
+  },
+
   list: {
     fontSize: 20,
     borderStyle: 'dashed',
     borderColor: '#F44336',
+    // flex: 1,
 
   },
   redbox: {
     backgroundColor: 'red',
     width: 80,
+    // flex: 1,
   }
 })
